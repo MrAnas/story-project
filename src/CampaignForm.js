@@ -28,15 +28,15 @@ function CampaignForm() {
   return (
     <Container>
     <form onSubmit={handleSubmit}>
-      <h5>Press Release Topic</h5>
+      <h5 className='text-left'>Press Release Topic</h5>
       <textarea
         name="field1"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-700 sm:text-sm sm:leading-6"
+        className="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-700 sm:text-sm sm:leading-6"
         value={formValues.field1}
         onChange={handleChange}
         placeholder="Field 1"
       />
-      <h5>Product Features</h5>
+      <h5 className='text-left'>Product Features</h5>
       <textarea
         name="field2"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-700 sm:text-sm sm:leading-6"
@@ -44,7 +44,7 @@ function CampaignForm() {
         onChange={handleChange}
         placeholder="Field 2"
       />
-      <h5>Unique Selling Proposition</h5>
+      <h5 className='text-left'>Unique Selling Proposition</h5>
       <textarea
         name="field3"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-700 sm:text-sm sm:leading-6"
