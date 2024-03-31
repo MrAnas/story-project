@@ -11,16 +11,14 @@ const Hero = () => {
             Generate your perfect press release with AI
             </h1>
             <p className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl ">
-              Story Incly is a free landing page & marketing website
-              template for startups and indie projects. Its built with
-              Story Inc.js & TailwindCSS. And its completely open-source.
+            Get your custom press release options delivered straight to your inbox in minutes!. Just fill out the form below
             </p>
 
             <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
               <a
                 href="#"
                 rel="noopener"
-                className="px-8 py-4 text-lg font-medium text-center text-white bg-cyan-700 rounded-md ">
+                className="px-8 py-4 text-lg font-medium text-center text-white bg-cyan-700 rounded-md mx-auto">
                Go to Form
               </a>
             </div>
