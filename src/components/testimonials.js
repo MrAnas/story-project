@@ -11,10 +11,9 @@ const Testimonials  = () => {
         <div className="lg:col-span-2 xl:col-auto">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14">
             <p className="text-2xl leading-normal ">
-              Share a real <Mark>testimonial</Mark>
-              that hits some of your benefits from one of your popular customer.
-            </p>
-
+              <Mark>Guaranteed Uniqueness</Mark>
+              We use advanced artificial intelligence technologies and our expertise to create texts that meets your specific needs!.
+                          </p>
             <Avatar
               image={userOneImg}
               name="Sarah Steiner"
@@ -25,8 +24,8 @@ const Testimonials  = () => {
         <div className="">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14">
             <p className="text-2xl leading-normal ">
-              Make sure you only pick the <Mark>right sentence</Mark>
-              to keep it short and simple.
+            <Mark>Saves you time and money</Mark>
+            Typically it takes 1-2 days to craft a press release with the help of a copy writer and editor. However, our service streamlines the process and produces a press release for you in mere minutes, eliminating the need for professional personnel.
             </p>
 
             <Avatar
@@ -39,8 +38,8 @@ const Testimonials  = () => {
         <div className="">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14">
             <p className="text-2xl leading-normal ">
-              This is an <Mark>awesome</Mark> landing page template I&apos;ve seen. I
-              would use this for anything.
+              <Mark>Adds to your progressive image</Mark>
+            Using AI to generate the press release can be leveraged as an advantage when presenting it to your boss. Also it can be as stand alone story.
             </p>
 
             <Avatar

@@ -22,7 +22,7 @@ const benefitOne = {
     },
     {
       title: "Improve acquisition",
-      desc: "Here you can add the next benefit point.",
+      desc: "Here you can add the Story Inc benefit point.",
       icon: <ChartBarSquareIcon />,
     },
     {
@@ -40,17 +40,17 @@ const benefitTwo = {
   bullets: [
     {
       title: "Mobile Responsive Template",
-      desc: "Nextly is designed as a mobile first responsive template.",
+      desc: "Story Incly is designed as a mobile first responsive template.",
       icon: <DevicePhoneMobileIcon />,
     },
     {
-      title: "Powered by Next.js & TailwindCSS",
+      title: "Powered by Story Inc",
       desc: "This template is powered by latest technologies and tools.",
       icon: <AdjustmentsHorizontalIcon />,
     },
     {
       title: "Dark & Light Mode",
-      desc: "Nextly comes with a zero-config light & dark mode. ",
+      desc: "Story Incly comes with a zero-config light & dark mode. ",
       icon: <SunIcon />,
     },
   ],
