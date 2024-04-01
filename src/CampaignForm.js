@@ -14,7 +14,8 @@ function CampaignForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch(process.env.BACKEND_PRODUCTION+'/submit-campaign', {
+    console.log(process.env.REACT_APP_BACKEND_PRODUCTION);
+    const response = await fetch(process.env.REACT_APP_BACKEND_PRODUCTION+'/submit-campaign', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
