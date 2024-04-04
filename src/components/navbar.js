@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <div className="w-full bg-[#E9E9E9]">
-      <nav className=" flex items-center justify-between px-2 sm:px-4  py-4 mx-auto lg:justify-between lg:px-8">
+      <nav className=" flex items-center justify-between px-2 sm:px-4 pt=4  pb-6 mx-auto lg:justify-between lg:px-8">
       
         {/* mobile view  */}
         <div className="flex w-full items-center justify-between md:hidden">
@@ -17,7 +17,7 @@ const Navbar = () => {
             <img
               src="/story-logo.png"
               alt="Logo"
-              className="w-[100px] md:w-[158px]"
+              className="w-[120px] md:w-[158px]"
             />
           </a>
           <Drawer
@@ -66,6 +66,8 @@ const Navbar = () => {
               onClick={open}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
+              width={32}
+              height={32}
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
