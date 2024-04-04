@@ -1,35 +1,40 @@
+import { Link as ScrollLink } from "react-scroll";
 import Container from "./container";
-import heroImg from "./img/hero.png";
+import { HeroBgOne, HeroBgTwo } from "./img";
 
 const Hero = () => {
   return (
-    <>
-      <Container className="flex flex-wrap ">
-        <div className="flex items-center w-full lg:w-1/2">
-          <div className="max-w-2xl mb-8">
-            <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight">
-            Generate your perfect press release with AI
+    <div className="bg-[#E9E9E9] relative">
+      <HeroBgOne />
+      <HeroBgTwo />
+
+      <Container className="flex flex-col w-full justify-center items-center ">
+        <div className="flex items-center justify-center w-full ">
+          <div className="max-w-3xl ">
+            <h1 className="text-3xl l md:text-5xl lg:text-7xl font-bold leading-snug tracking-tight text-gray-800  lg:leading-tight xl:leading-tight">
+              Generate your perfect press release with AI
             </h1>
-            <p className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl ">
-              Story Incly is a free landing page & marketing website
-              template for startups and indie projects. Its built with
-              Story Inc.js & TailwindCSS. And its completely open-source.
+            <p className="py-5 max-w-md md:max-w-lg lg:max-w-xl mx-auto text-lg md:text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl ">
+              Get your custom press release options delivered straight to your
+              inbox in minutes!. Just fill out the form below
             </p>
 
-            <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
-              <a
-                href="#"
-                rel="noopener"
-                className="px-8 py-4 text-lg font-medium text-center text-white bg-cyan-700 rounded-md ">
-               Go to Form
-              </a>
-            </div>
+            <ScrollLink
+              to="campaignForm" // ID of the target section
+              smooth={true}
+              duration={500}
+              className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row"
+            >
+              <button className="px-8 py-4 text-lg font-semibold text-center text-white w-[185px] bg-[#4B5FFF] hover:bg-[#4a5ce4] rounded-xl shadow-md mx-auto">
+                Go to Form
+              </button>
+            </ScrollLink>
           </div>
         </div>
         <div className="flex items-center justify-center w-full lg:w-1/2">
           <div className="">
             <img
-              src={heroImg}
+              src="/storyHero.png"
               width="616"
               height="617"
               className={"object-cover"}
@@ -40,10 +45,8 @@ const Hero = () => {
           </div>
         </div>
       </Container>
-
-    </>
+    </div>
   );
-}
-
+};
 
 export default Hero;

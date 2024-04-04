@@ -1,6 +1,7 @@
 // File: server.js (Node.js/Express)
 require('dotenv').config();
 
+const cors = require('cors')
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Resend } = require('resend');
@@ -11,7 +12,7 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-app.use(bodyParser.json());
+app.use(cors(),bodyParser.json());
 
 app.post('/submit-campaign', async (req, res) => {
   const { field1, field2, field3 } = req.body;
@@ -43,7 +44,7 @@ app.post('/submit-campaign', async (req, res) => {
     // console.log(generatedText);
     resend.emails.send({
       from: 'onboarding@resend.dev',
-      to: 'anas2006101@gmail.com',
+      to: 'olatunjitemitayo444@gmail.com',
       subject: 'PR Mail',
       html: '<p>'+data+'</p>'
     });

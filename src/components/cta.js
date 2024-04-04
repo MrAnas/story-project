@@ -1,30 +1,38 @@
-import React from "react";
-import Container from "./container";
+// import Container from "./container";
 
 const Cta = () => {
   return (
-    <Container>
-      <div className="flex flex-wrap items-center justify-between w-full max-w-4xl gap-5 mx-auto text-white bg-cyan-900 px-7 py-7 lg:px-12 lg:py-20 lg:flex-nowrap rounded-xl">
-        <div className="flex-grow text-center lg:text-left">
-          <h2 className="text-2xl font-medium lg:text-3xl">
-          Subscribe to our Blog
-          </h2>
-          <p className="mt-2 font-medium text-white text-opacity-90 lg:text-xl">
-          Hungry for knowledge on cutting-edge AI technology in communications?, Subscribe to our blog and stay ahead of the game with expert tips and exclusive content.
-          </p>
-        </div>
-        <div className="flex-shrink-0 w-full text-center lg:w-auto">
-          <a
-            href="https://github.com/web3templates"
-            target="_blank"
-            rel="noopener"
-            className="inline-block py-3 mx-auto text-lg font-medium text-center text-cyan-700 bg-white rounded-md px-7 lg:px-10 lg:py-5 ">
+<div className="px-2 pb-12 md:pb-16 lg:pb-24">
+    <div className="container relative bg-[#00263A]  rounded-3xl py-10 lg;py-20 flex flex-col gap-12 mx-auto   px-2 sm:px-4 md:px-8">
+      <img
+        className="absolute hidden sm:flex top-0 left-16 "
+        src="/bgBig.png"
+        alt="/bgBig.png"
+      />
+      <img
+        className="absolute  hidden sm:flex top-0 right-32 "
+        src="/bgSmall.png"
+        alt="/bgSmall.png"
+      />
+      <div className="flex flex-col justify-center items-center z-10 gap-4">
+        <h2 className="font-bold text-white   text-3xl lg:text-5xl py-4">Subscribe to our Blog</h2>
+        <p className="py-5 max-w-md md:max-w-lg lg:max-w-xl mx-auto text-lg md:text-xl leading-normal text-white lg:text-xl xl:text-2xl ">
+            Get your custom press release options delivered straight to your inbox in minutes!. Just fill out the form below
+            </p>
+            <div className="flex gap-6 flex-wrap justify-center items-center">
+              <h4 className="font-semibold text-white text-xl">Story.inc</h4>
+              <button
+              
+               
+              className="px-8 py-4 text-lg font-semibold text-center text-white w-[185px] bg-[#4B5FFF] hover:bg-[#4a5ce4] rounded-xl shadow-md mx-auto">
             Subscribe
-          </a>
-        </div>
+            </button>
+            </div>
       </div>
-    </Container>
+    </div>
+
+</div>
   );
-}
+};
 
 export default Cta;

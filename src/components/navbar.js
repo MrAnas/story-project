@@ -11,25 +11,21 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="w-full">
-      <nav className="container relative flex flex-wrap items-center justify-between p-8 mx-auto lg:justify-between xl:px-0">
+    <div className="w-full bg-[#E9E9E9]">
+      <nav className="container relative flex flex-wrap items-center justify-between px-8 py-4 mx-auto lg:justify-between xl:px-0">
         {/* Logo  */}
         <Disclosure>
           {({ open }) => (
             <>
               <div className="flex flex-wrap items-center justify-between w-full lg:w-auto">
                 <a href="/">
-                  <span className="flex items-center space-x-2 text-2xl font-medium text-cyan-700">
-                    <span>
+                
                       <img
-                        src="/logo.png"
+                        src="/story-logo.png"
                         alt="Logo"
-                        width="160"
-                        height="60"
-                        className="w-20"
+                     className="w-[px] md:w-[158px]"
                       />
-                    </span>
-                  </span>
+                 
                 </a>
 
                 <Disclosure.Button
@@ -86,9 +82,9 @@ const Navbar = () => {
         </div>
 
         <div className="hidden mr-3 space-x-4 lg:flex nav__item">
-          <a href="/" className="px-6 py-2 text-white bg-cyan-700 rounded-md md:ml-5">
+          <button href="/" className="px-6 py-2 text-lg font-semibold text-center text-white bg-[#4B5FFF] hover:bg-[#4a5ce4] rounded-xl shadow-md mx-auto">
               Get Started
-          </a>
+          </button>
         </div>
       </nav>
     </div>
