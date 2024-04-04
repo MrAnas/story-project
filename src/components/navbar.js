@@ -1,94 +1,116 @@
 // import ThemeChanger from "./DarkSwitch";
 import { Disclosure } from "@headlessui/react";
+import { useDisclosure } from "@mantine/hooks";
+import { Drawer, Button, Group } from "@mantine/core";
 
 const Navbar = () => {
-  const navigation = [
-    "Product",
-    "Features",
-    "Pricing",
-    "Company",
-    "Blog",
-  ];
+  const [opened, { open, close }] = useDisclosure(false);
+  const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
 
   return (
     <div className="w-full bg-[#E9E9E9]">
-      <nav className="container relative flex flex-wrap items-center justify-between px-8 py-4 mx-auto lg:justify-between xl:px-0">
-        {/* Logo  */}
-        <Disclosure>
-          {({ open }) => (
-            <>
-              <div className="flex flex-wrap items-center justify-between w-full lg:w-auto">
-                <a href="/">
-                
-                      <img
-                        src="/story-logo.png"
-                        alt="Logo"
-                     className="w-[px] md:w-[158px]"
-                      />
-                 
-                </a>
-
-                <Disclosure.Button
-                  aria-label="Toggle Menu"
-                  className="px-2 py-1 ml-auto text-gray-500 rounded-md lg:hidden hover:text-cyan-700 focus:text-cyan-700 focus:bg-indigo-100 focus:outline-none">
-                  <svg
-                    className="w-6 h-6 fill-current"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24">
-                    {open && (
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
-                      />
-                    )}
-                    {!open && (
-                      <path
-                        fillRule="evenodd"
-                        d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
-                      />
-                    )}
-                  </svg>
-                </Disclosure.Button>
-
-                <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
-                  <>
-                    {navigation.map((item, index) => (
-                      <a key={index} href="/" className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md hover:text-cyan-700 focus:text-cyan-700 focus:bg-indigo-100 focus:outline-none">
-                          {item}
-                      </a>
-                    ))}
-                    <a href="/" className="w-full px-6 py-2 mt-3 text-center text-white bg-cyan-700 rounded-md lg:ml-5">         
-                        Get Started
-                    </a>
-                  </>
-                </Disclosure.Panel>
-              </div>
-            </>
-          )}
-        </Disclosure>
-
-        {/* menu  */}
-        <div className="hidden text-center lg:flex lg:items-center">
-          <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
+      <nav className=" flex items-center justify-between px-2 sm:px-4  py-4 mx-auto lg:justify-between lg:px-8">
+      
+        {/* mobile view  */}
+        <div className="flex w-full items-center justify-between md:hidden">
+          <a href="/">
+            <img
+              src="/story-logo.png"
+              alt="Logo"
+              className="w-[100px] md:w-[158px]"
+            />
+          </a>
+          <Drawer
+            position="top"
+            opened={opened}
+            onClose={close}
+            title={<img
+              src="/story-logo.png"
+              alt="Logo"
+              className="w-[100px] md:w-[158px]"
+            />}
+            transitionProps={{ duration: 600, transition: "slide-down" }}
+            classNames={{
+              close: "w-10 h-10",
+              content: " h-max   ",
+              body: "px-0 ",
+            }}
+            closeOnClickOutside
+            closeOnEscape
+          >
+            {/* Drawer content */}
+            <ul className="flex flex-col gap-4">
             {navigation.map((menu, index) => (
-              <li className="mr-3 nav__item" key={index}>
-                <a href="/" className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-cyan-700 focus:text-cyan-700 focus:bg-indigo-100 focus:outline-none">
-                    {menu}
+              <li className="" key={index}>
+                <a
+                  href="/"
+                  className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-cyan-700 focus:text-cyan-700 focus:bg-indigo-100 focus:outline-none"
+                >
+                  {menu}
+                </a>
+                
+              </li>
+              
+            ))}
+              <button
+            href="/"
+            className="px-6 py-2 text-lg w-[70%] mx-auto font-semibold text-center text-white bg-[#4B5FFF] hover:bg-[#4a5ce4] rounded-xl shadow-md "
+          >
+            Get Started
+          </button>
+            </ul>
+          </Drawer>
+
+          <Group position="center" className="cursor-pointer">
+            <svg
+              onClick={open}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+              />
+            </svg>
+          </Group>
+        </div>
+
+        {/* desktop menu  */}
+        <div className="hidden w-full text-center md:flex md:items-center justify-between" >
+        <img
+              src="/story-logo.png"
+              alt="Logo"
+              className="w-[100px] md:w-[158px]"
+            />
+          <ul className="flex items-center justify-center gap-4">
+            {navigation.map((menu, index) => (
+              <li className="" key={index}>
+                <a
+                  href="/"
+                  className="inline-block text-lg font-normal text-gray-800 no-underline rounded-md hover:text-cyan-700 focus:text-cyan-700 focus:bg-indigo-100 focus:outline-none"
+                >
+                  {menu}
                 </a>
               </li>
             ))}
           </ul>
-        </div>
-
-        <div className="hidden mr-3 space-x-4 lg:flex nav__item">
-          <button href="/" className="px-6 py-2 text-lg font-semibold text-center text-white bg-[#4B5FFF] hover:bg-[#4a5ce4] rounded-xl shadow-md mx-auto">
-              Get Started
+          <button
+            href="/"
+            className="px-6 py-2 text-lg font-semibold text-center text-white bg-[#4B5FFF] hover:bg-[#4a5ce4] rounded-xl shadow-md "
+          >
+            Get Started
           </button>
         </div>
+
+    
       </nav>
     </div>
   );
-}
+};
 
 export default Navbar;

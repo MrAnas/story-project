@@ -2,7 +2,7 @@ import React from 'react'
 
 export  function HeroBgTwo() {
   return (
-    <svg width="560" height="808" className="absolute left-0 top-10 pointer-events-none" viewBox="0 0 560 808" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="560" height="808" className="absolute hidden md:block  left-0 top-10 pointer-events-none" viewBox="0 0 560 808" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g opacity="0.4" filter="url(#filter0_f_101_1063)">
     <circle cx="110" cy="450" r="150" fill="url(#paint0_linear_101_1063)"/>
     </g>
