@@ -47,17 +47,4 @@ const Features  = () => {
     </div>
   );
 }
-
-
-// function Mark(props) {
-//   return (
-//     <>
-//       {" "}
-//       <mark className="text-indigo-800 bg-indigo-100 rounded-md ring-indigo-100 ring-4">
-//         {props.children}
-//       </mark>{" "}
-//     </>
-//   );
-// }
-
 export default Features;

@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <div className="w-full bg-[#E9E9E9]">
-      <nav className=" flex items-center justify-between px-2 sm:px-4 pt=4  pb-6 mx-auto lg:justify-between lg:px-8">
+      <nav className=" flex items-center justify-between px-2 sm:px-4 pt-4  pb-6 mx-auto lg:justify-between lg:px-8">
       
         {/* mobile view  */}
         <div className="flex w-full items-center justify-between md:hidden">

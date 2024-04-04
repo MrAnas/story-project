@@ -13,18 +13,11 @@ function App() {
     <div className="App">
       <Navbar />
       <Hero />
-      {/* <About /> */}
-      {/* <SectionTitle
-        pretitle="About the generator"
-        title="Benefits of using Story Inc Generator">
-      </SectionTitle> */}
       <Features />
-      {/* HERE IS FORM */}
       <div id="campaignForm">
         <CampaignForm />
       </div>
       <Cta />
-      {/* <Footer /> */}
       <FooterNew />
     </div>
   );
