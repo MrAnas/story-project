@@ -21,6 +21,7 @@ app.post('/submit-campaign', async (req, res) => {
   const resend = new Resend('re_f9XPt2oA_7nMDfJzoYd5VMb43k3CGo1fn');
 
   try {
+    // First: This function to collect Form Inputs to the prompt of GPT (All Fields)
     const chatResponse = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [{role:"user", content:`Create Marketing Campaing for these topics: ${field1}, ${field2}, ${field3}`}],
@@ -28,8 +29,8 @@ app.post('/submit-campaign', async (req, res) => {
       stream: true
       
     });
-    let data = '';
 
+    let data = '';
         for await (const chunk of chatResponse) {
          data+= chunk.choices[0]?.delta?.content || '';
         }
@@ -37,27 +38,15 @@ app.post('/submit-campaign', async (req, res) => {
         console.log(data);
     res.json({ success: true, message: 'Campaign submitted successfully.' });
 
-
-    console.log("sent, response:")
-    // console.log(chatResponse)
-    // const generatedText = chatResponse?.data?.choices?.[0]?.text ?? "API isn't ready";
-    // console.log(generatedText);
+  //Second: We Create Word Doc based on the Data generated Above
+  //Third: We send the mail to the customer with our Content
     resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'olatunjitemitayo444@gmail.com',
       subject: 'PR Mail',
       html: '<p>'+data+'</p>'
     });
-      // console.log();
-    // }
-    // Create a Google Docs file with the response
-    // const auth = new google.auth.GoogleAuth({
-    //   // Specify your Google API credentials
-    // });
-    // const docs = google.docs({ version: 'v1', auth });
-    // Create and write to Google Doc (omitted for brevity)
-
-    // Send the Google Docs link via email (using Nodemailer or another service)
+  // Fourth: We use GoogleSheet/any alternative as our backend so we register the form 
 
 } catch (error) {
     console.log(error)
