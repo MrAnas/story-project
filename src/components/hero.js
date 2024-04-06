@@ -50,3 +50,33 @@ const Hero = () => {
 };
 
 export default Hero;
+
+
+ // const handleChange = (event) => {
+  //   setFormValues({
+  //     ...formValues,
+  //     [event.target.name]: event.target.value,
+  //   });
+  // };
+  // console.log({ form });
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   console.log(process.env.REACT_APP_BACKEND_PRODUCTION);
+  //   const response = await fetch(
+  //     process.env.REACT_APP_BACKEND_PRODUCTION + "/submit-campaign",
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formValues),
+  //     }
+  //   );
+  //   const data = await response.json();
+  //   console.log(data); // Handle the response as needed
+
+  //   if (response.ok) {
+  //     open(); // Open the modal
+  //   }
+  // };

@@ -15,7 +15,7 @@ const port = 3000;
 app.use(cors(),bodyParser.json());
 
 app.post('/submit-campaign', async (req, res) => {
-  const { field1, field2, field3 } = req.body;
+  const { field1, field2, field3 , field4} = req.body;
   // Call ChatGPT API with form data
   const openai = new OpenAIApi({apiKey: process.env.OPENAI_API_KEY});
   const resend = new Resend('re_f9XPt2oA_7nMDfJzoYd5VMb43k3CGo1fn');
@@ -24,7 +24,7 @@ app.post('/submit-campaign', async (req, res) => {
     // First: This function to collect Form Inputs to the prompt of GPT (All Fields)
     const chatResponse = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      messages: [{role:"user", content:`Create Marketing Campaing for these topics: ${field1}, ${field2}, ${field3}`}],
+      messages: [{role:"user", content:`Create Marketing Campaing for these topics:  ${field1}, ${field2}, ${field3}, ${field4}`}],
       max_tokens: 2048, 
       stream: true
       

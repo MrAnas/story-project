@@ -36,3 +36,43 @@
     transform: rotate(360deg);
   }
 }
+
+.PhoneInput{
+  display: flex;
+
+}
+.PhoneInputCountry{
+  display: flex;
+flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  border-inline-end: 1px solid black;
+  padding-inline: 8px;
+}
+.PhoneInputCountrySelect{
+  display: flex;
+cursor: pointer;
+  width: 20px;
+}
+.PhoneInput > input:focus-within {
+  border: none !important;
+  outline: none !important;
+}
+.PhoneInputCountryIconImg{
+  width: 30px;
+}
+.PhoneInputInput {
+  font-size: 14px;
+  /* border: 1px solid #344054; */
+  width: 100%;
+  border-start-end-radius: 6px;
+  border-end-end-radius: 6px;
+  padding-block: 10px;
+  padding-inline: 8px;
+}
+/* .PhoneInputInput:focus {
+  border-color: blue; 
+}
+.PhoneInputInput:active {
+  border-color: blue; 
+} */
