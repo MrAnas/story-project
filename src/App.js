@@ -1,6 +1,5 @@
 import Hero from "./components/hero";
 import Navbar from "./components/navbar";
-// import Footer from "./components/footer";
 import Features from "./components/Features";
 import Cta from "./components/cta";
 import "./tailwind.css";

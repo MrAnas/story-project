@@ -1,34 +1,32 @@
 import React, { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, TextInput, Textarea } from "@mantine/core";
-import { yupResolver } from 'mantine-form-yup-resolver';
-import * as Yup from 'yup';
-import { useForm } from '@mantine/form';
 import PhoneInput from "react-phone-number-input";
+import { useForm, yupResolver } from "@mantine/form";
+import { object, string } from "yup";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
-const FormSchema = Yup.object().shape({
-  name: Yup
-    .string()
-    .required("Name is required")
-    .matches(/^[A-Zz-z/s]+$/, "Name must contain only letters and spaces"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  phone: Yup.string().required("Phone number is required"),
-  field1: Yup.string().required(" Press Release Topic is required"),
-  field2: Yup
-    .string()
-    .required(" Companies to be mentioned in the press release is required"),
-  field3: Yup.string().required("Companies Industry is required"),
-  field4: Yup
-    .string()
-    .required("People to be mentioned in the press release is required"),
-  lang: Yup.string().required("Language is required"),
+const FormSchema = object({
+  name: string()
+    .required("Name is required"),
+  email: string().email("Invalid email").required("Email is required"),
+  phone: string().required("Phone number is required"),
+  field1: string().required(" Press Release Topic is required"),
+  field2: string().required(
+    " Companies to be mentioned in the press release is required"
+  ),
+  field3: string().required("Companies Industry is required"),
+  field4: string().required(
+    "People to be mentioned in the press release is required"
+  ),
+  lang: string().required("Language is required"),
 });
 
 function CampaignForm() {
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedLanguage, setSelectedLanguage] = useState("");
-
+  const {t} = useTranslation()
   const form = useForm({
     initialValues: {
       name: "",
@@ -42,7 +40,7 @@ function CampaignForm() {
     },
     validate: yupResolver(FormSchema),
   });
-  console.log({ form });
+  // console.log({ form });
   const GetPressRelease = async () => {
     try {
       const response = await axios.post(
@@ -50,7 +48,7 @@ function CampaignForm() {
 
         form.values
       );
-      console.log(response.data);
+      // console.log(response.data);
       open();
     } catch (error) {
       console.error("Error submitting campaign:", error);
@@ -64,12 +62,12 @@ function CampaignForm() {
         className=" flex flex-col gap-6 md:gap-12 mx-auto py-12 lg:py-24  px-4 md:px-8"
       >
         <h2 className="font-bold text-[#002738]   text-3xl lg:text-5xl py-4">
-          Press Release Form
+         {t("formHeading")}
         </h2>
         <div className="flex flex-col gap-4 md:gap-10">
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-              Your Name
+            {t("name")}
             </label>
             <TextInput
               type="text"
@@ -78,13 +76,13 @@ function CampaignForm() {
               classNames={{
                 input: " rounded-md border border-[#344054] px-3 py-5",
               }}
-              placeholder="Enter Your Name"
+              placeholder={t("nameplaceholder")}
               // required
             />
           </div>
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-              Email Address
+             {t("email")}
             </label>
             <TextInput
               type="text"
@@ -92,20 +90,21 @@ function CampaignForm() {
               classNames={{
                 input: " rounded-md border border-[#344054] px-3 py-5",
               }}
-              placeholder="Enter Your Email Address"
+              placeholder={t("emailplaceholder")}
             />
           </div>
           {/* Phone number  */}
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-              Phone Number
+            {t("phone")}
             </label>
             <div className="w-full">
               <PhoneInput
                 label={false}
                 value={form.values.phone}
                 onChange={(value) => form.setFieldValue("phone", value)}
-                defaultCountry="NG"
+                defaultCountry="SA"
+                placeholder= {t("phoneplaceholder")}
                 style={{
                   border: "1px solid #344054",
                   borderRadius: "6px",
@@ -115,7 +114,7 @@ function CampaignForm() {
           </div>
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-              Press Release Topic
+            {t("topic")}
             </label>
             <Textarea
               resize="both"
@@ -124,18 +123,18 @@ function CampaignForm() {
                 input:
                   " rounded-md border border-[#344054] px-3 py-1 min-h-[120px]",
               }}
-              placeholder="E.g New Product Launch"
+              placeholder={t("topicplaceholder")}
             />
             <p className="text-start text-[#475467] text-sm">
-              The main topic of the press release
+            {t("topicsub")}
             </p>
           </div>
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-              Companies to be mentioned in the press release
+            {t("companies")}
             </label>
             <TextInput
-              placeholder="E.g Instagram, Facebook"
+              placeholder={t("companiesplaceholder")}
               {...form.getInputProps("field2")}
               classNames={{
                 input: " rounded-md border border-[#344054] px-3 py-5",
@@ -144,31 +143,31 @@ function CampaignForm() {
           </div>
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-              Companies Industry
+            {t("industry")}
             </label>
             <TextInput
               {...form.getInputProps("field3")}
               classNames={{
                 input: " rounded-md border border-[#344054] px-3 py-5",
               }}
-              placeholder="E.g Tech, Fintech, Saas"
+              placeholder={t("industryplaceholder")}
             />
           </div>
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-              People to be mentioned in the press release
+              {t("people")}
             </label>
             <TextInput
               {...form.getInputProps("field4")}
               classNames={{
                 input: " rounded-md border border-[#344054] px-3 py-5",
               }}
-              placeholder="E.g CEO, Marketing lead"
+              placeholder={t("peopleplaceholder")}
             />
           </div>
           <div className="flex flex-col gap-4 md:gap-8 ">
             <label className=" font-medium text-base text-start text-[#344054]">
-              Language
+              {t("language")}
             </label>
             <div>
               <div className="flex flex-col gap-3">
@@ -179,13 +178,13 @@ function CampaignForm() {
                       id="option1"
                       name="language"
                       className="focus:ring-[#4F46E5] h-4 w-4 cursor-pointer text-[#4F46E5] border-gray-300 rounded"
-                      onClick={setSelectedLanguage("emglish")}
+                      onClick={() => setSelectedLanguage("emglish")}
                     />
                     <label
                       htmlFor="option1"
                       className=" text-[#344054] cursor-pointer"
                     >
-                      English
+                       {t("1anguage1")}
                     </label>
                   </div>
                   <div className="flex items-center gap-2 ">
@@ -194,18 +193,18 @@ function CampaignForm() {
                       id="option2"
                       name="language"
                       className="focus:ring-[#4F46E5] h-4 w-4 cursor-pointer  text-[#4F46E5] border-gray-300 rounded"
-                      onClick={setSelectedLanguage("arabic")}
+                      onClick={() => setSelectedLanguage("arabic")}
                     />
                     <label
                       htmlFor="option2"
                       className="text-[#344054] cursor-pointer"
                     >
-                      Arabic
+                       {t("1anguage2")}
                     </label>
                   </div>
                 </div>
                 <p className="text-start text-[#475467] text-sm">
-                  The language in which the press release should be generated
+                {t("generateLanguage")}
                 </p>
               </div>
             </div>
@@ -215,7 +214,7 @@ function CampaignForm() {
           type="submit"
           className="w-full bg-[#00263A]/90 text-lg hover:bg-[#00263A] py-4 md:py-7 rounded-xl text-white"
         >
-          Submit
+              {t("formsubmit")}
         </button>
       </form>
       <Modal

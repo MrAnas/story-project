@@ -1,12 +1,13 @@
-// import ThemeChanger from "./DarkSwitch";
-import { Disclosure } from "@headlessui/react";
 import { useDisclosure } from "@mantine/hooks";
-import { Drawer, Button, Group } from "@mantine/core";
+import { Drawer, Group } from "@mantine/core";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   const [opened, { open, close }] = useDisclosure(false);
-  const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
+  const {t} = useTranslation()
+  const {item1, item2, item3, item4, item5} = t("navItems", "navButton")
 
+  const navigation = [item1, item2, item3, item4, item5];
   return (
     <div className="w-full bg-[#E9E9E9]">
       <nav className=" flex items-center justify-between px-2 sm:px-4 pt-4  pb-6 mx-auto lg:justify-between lg:px-8">
@@ -56,7 +57,7 @@ const Navbar = () => {
             href="/"
             className="px-6 py-2 text-lg w-[70%] mx-auto font-semibold text-center text-white bg-[#4B5FFF] hover:bg-[#4a5ce4] rounded-xl shadow-md "
           >
-            Get Started
+           {t("navButton")}
           </button>
             </ul>
           </Drawer>
@@ -105,7 +106,7 @@ const Navbar = () => {
             href="/"
             className="px-6 py-2 text-lg font-semibold text-center text-white bg-[#4B5FFF] hover:bg-[#4a5ce4] rounded-xl shadow-md "
           >
-            Get Started
+            {t("navButton")}
           </button>
         </div>
 
