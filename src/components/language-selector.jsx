@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 export default function LanguageSelector() {
   const [value, setValue] = useState(() => {
     const storedLanguage = localStorage.getItem('selectedLanguage');
-    return storedLanguage ? storedLanguage : "en";
+    return storedLanguage ? storedLanguage : "ar";
   });
 
   const { i18n } = useTranslation();

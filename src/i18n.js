@@ -9,6 +9,8 @@ i18n
   .use(Backend)
   .init({
     debug: true,
-    fallbackLng: "en",
+    fallbackLng: "ar",
+    default: 'ar',
+    lng: "ar",
     returnObjects:true,
   });
