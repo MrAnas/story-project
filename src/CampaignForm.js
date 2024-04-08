@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { Modal, TextInput, Textarea } from "@mantine/core";
+import { Modal, TextInput, Textarea, Radio, Loader } from "@mantine/core";
 import PhoneInput from "react-phone-number-input";
 import { useForm, yupResolver } from "@mantine/form";
 import { object, string } from "yup";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 
+
 const FormSchema = object({
-  name: string()
-    .required("Name is required"),
+  name: string().required("Name is required"),
   email: string().email("Invalid email").required("Email is required"),
   phone: string().required("Phone number is required"),
   field1: string().required(" Press Release Topic is required"),
@@ -26,7 +26,9 @@ const FormSchema = object({
 function CampaignForm() {
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedLanguage, setSelectedLanguage] = useState("");
-  const {t} = useTranslation()
+  const [isLoading, setIsLoading] = useState(false)
+  // const [pdf, setPdf] = useState("");
+  const { t } = useTranslation();
   const form = useForm({
     initialValues: {
       name: "",
@@ -36,41 +38,76 @@ function CampaignForm() {
       field2: "",
       field3: "",
       field4: "",
-      lang: selectedLanguage,
     },
     validate: yupResolver(FormSchema),
   });
-  // console.log({ form });
-  const GetPressRelease = async () => {
+
+  console.log({ selectedLanguage });
+  const GetPressRelease = async (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+    setIsLoading(true)
+
     try {
       const response = await axios.post(
-        process.env.REACT_APP_BACKEND_PRODUCTION + "/submit-campaign",
-
-        form.values
+        "http://localhost:3000/submit-campaign",
+        {
+          ...form.values,
+          lang: selectedLanguage,
+        }
       );
-      // console.log(response.data);
-      open();
+      if (response) {
+        setIsLoading(false)
+        open();
+        form.setFieldValue('')
+      
+      }
     } catch (error) {
       console.error("Error submitting campaign:", error);
     }
   };
 
+  function SubmitGoogleSheet(e){
+    const formEle = document.querySelector("form");
+    const formDatab = new FormData(formEle);
+    fetch(
+      "https://script.google.com/macros/s/AKfycby8gyqNpCNbn1bBP010hXy7niHFuYnLjg6qk52A_6L3SRaI38EKvjMAlXo6tYi3cjlB/exec",
+      {
+        method: "POST",
+        body: formDatab
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  console.log({ form });
   return (
     <div className="max-w-4xl mx-auto">
+      
       <form
-        onSubmit={GetPressRelease}
-        className=" flex flex-col gap-6 md:gap-12 mx-auto py-12 lg:py-24  px-4 md:px-8"
+        onSubmit={(e) => {
+          // GetPressRelease();
+        SubmitGoogleSheet(e)
+        }}
+        className="form flex flex-col gap-6 md:gap-12 mx-auto py-12 lg:py-24  px-4 md:px-8"
       >
         <h2 className="font-bold text-[#002738]   text-3xl lg:text-5xl py-4">
-         {t("formHeading")}
+          {t("formHeading")}
         </h2>
         <div className="flex flex-col gap-4 md:gap-10">
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-            {t("name")}
+              {t("name")}
             </label>
             <TextInput
+            // required
               type="text"
+              name="Name"
               {...form.getInputProps("name")}
               className=" placeholder-[#667085]"
               classNames={{
@@ -82,10 +119,11 @@ function CampaignForm() {
           </div>
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-             {t("email")}
+              {t("email")}
             </label>
             <TextInput
               type="text"
+              name="Email"
               {...form.getInputProps("email")}
               classNames={{
                 input: " rounded-md border border-[#344054] px-3 py-5",
@@ -96,15 +134,16 @@ function CampaignForm() {
           {/* Phone number  */}
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-            {t("phone")}
+              {t("phone")}
             </label>
             <div className="w-full">
               <PhoneInput
                 label={false}
+                name='Phone'
                 value={form.values.phone}
                 onChange={(value) => form.setFieldValue("phone", value)}
                 defaultCountry="SA"
-                placeholder= {t("phoneplaceholder")}
+                placeholder={t("phoneplaceholder")}
                 style={{
                   border: "1px solid #344054",
                   borderRadius: "6px",
@@ -114,27 +153,27 @@ function CampaignForm() {
           </div>
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-            {t("topic")}
+              {t("topic")}
             </label>
             <Textarea
               resize="both"
               {...form.getInputProps("field1")}
+              name="Topic"
               classNames={{
                 input:
                   " rounded-md border border-[#344054] px-3 py-1 min-h-[120px]",
               }}
               placeholder={t("topicplaceholder")}
             />
-            <p className="text-start text-[#475467] text-sm">
-            {t("topicsub")}
-            </p>
+            <p className="text-start text-[#475467] text-sm">{t("topicsub")}</p>
           </div>
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-            {t("companies")}
+              {t("companies")}
             </label>
             <TextInput
               placeholder={t("companiesplaceholder")}
+              name="Companies"
               {...form.getInputProps("field2")}
               classNames={{
                 input: " rounded-md border border-[#344054] px-3 py-5",
@@ -143,10 +182,11 @@ function CampaignForm() {
           </div>
           <div className="flex flex-col gap-[6px]">
             <label className=" font-medium text-base text-start text-[#344054]">
-            {t("industry")}
+              {t("industry")}
             </label>
             <TextInput
               {...form.getInputProps("field3")}
+              name="Industry"
               classNames={{
                 input: " rounded-md border border-[#344054] px-3 py-5",
               }}
@@ -159,52 +199,39 @@ function CampaignForm() {
             </label>
             <TextInput
               {...form.getInputProps("field4")}
+              name="People"
               classNames={{
                 input: " rounded-md border border-[#344054] px-3 py-5",
               }}
               placeholder={t("peopleplaceholder")}
             />
           </div>
-          <div className="flex flex-col gap-4 md:gap-8 ">
+          <div className="flex flex-col gap-4  ">
             <label className=" font-medium text-base text-start text-[#344054]">
               {t("language")}
             </label>
             <div>
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col gap-4">
-                  <div className="flex items-center gap-2  w-max">
-                    <input
-                      type="radio"
-                      id="option1"
-                      name="language"
-                      className="focus:ring-[#4F46E5] h-4 w-4 cursor-pointer text-[#4F46E5] border-gray-300 rounded"
-                      onClick={() => setSelectedLanguage("emglish")}
-                    />
-                    <label
-                      htmlFor="option1"
-                      className=" text-[#344054] cursor-pointer"
-                    >
-                       {t("1anguage1")}
-                    </label>
-                  </div>
-                  <div className="flex items-center gap-2 ">
-                    <input
-                      type="radio"
-                      id="option2"
-                      name="language"
-                      className="focus:ring-[#4F46E5] h-4 w-4 cursor-pointer  text-[#4F46E5] border-gray-300 rounded"
-                      onClick={() => setSelectedLanguage("arabic")}
-                    />
-                    <label
-                      htmlFor="option2"
-                      className="text-[#344054] cursor-pointer"
-                    >
-                       {t("1anguage2")}
-                    </label>
-                  </div>
+               
+                  <Radio.Group
+                    value={selectedLanguage}
+                    onChange={setSelectedLanguage}
+                    name="favoriteFramework"
+                  
+                
+                    withAsterisk
+                  >
+                    <div className="flex flex-col gap-2">
+                    <Radio value="english" label="English" />
+                    <Radio value="arabic" label="Arabic" />
+
+                    </div>
+                  
+                  </Radio.Group>
                 </div>
                 <p className="text-start text-[#475467] text-sm">
-                {t("generateLanguage")}
+                  {t("generateLanguage")}
                 </p>
               </div>
             </div>
@@ -212,11 +239,14 @@ function CampaignForm() {
         </div>
         <button
           type="submit"
-          className="w-full bg-[#00263A]/90 text-lg hover:bg-[#00263A] py-4 md:py-7 rounded-xl text-white"
+          disabled={isLoading}
+          className={`w-full bg-[#00263A]/90 text-lg hover:bg-[#00263A] py-4 md:py-7 rounded-xl ${isLoading ? 'cursor-not-allowed' : 'cursor-pointer'}`}
         >
-              {t("formsubmit")}
+          {isLoading ?<div className="text-center flex w-full justify-center items-center"><Loader /></div>  : <div className="text-white"> {t("formsubmit")}</div> }
+         
         </button>
       </form>
+
       <Modal
         opened={opened}
         onClose={close}
@@ -240,6 +270,7 @@ function CampaignForm() {
           </div>
         </div>
       </Modal>
+     
     </div>
   );
 }

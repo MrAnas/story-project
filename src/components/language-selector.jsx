@@ -9,7 +9,7 @@ export default function LanguageSelector() {
   });
 
   const { i18n } = useTranslation();
-
+  // re_ghm2qEPX_8MhXhU37okttxpAnZMQH56Sx
   useEffect(() => {
     i18n.changeLanguage(value);
     localStorage.setItem('selectedLanguage', value);
@@ -39,3 +39,5 @@ export default function LanguageSelector() {
     </div>
   );
 }
+
+// 'onboarding@resend.dev',
