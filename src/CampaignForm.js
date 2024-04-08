@@ -276,3 +276,14 @@ function CampaignForm() {
 }
 
 export default CampaignForm;
+
+// "routes": [
+//   {
+//     "src": "/(.*)",
+//     "dest": "/",
+//     "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+//     "headers": {
+//       "Access-Control-Allow-Origin": "*"
+//     }
+//   }
+// ]
