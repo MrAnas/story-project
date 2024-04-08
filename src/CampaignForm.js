@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, TextInput, Textarea, Radio, Loader } from "@mantine/core";
 import PhoneInput from "react-phone-number-input";
@@ -6,7 +6,6 @@ import { useForm, yupResolver } from "@mantine/form";
 import { object, string } from "yup";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-
 
 const FormSchema = object({
   name: string().required("Name is required"),
@@ -26,7 +25,8 @@ const FormSchema = object({
 function CampaignForm() {
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedLanguage, setSelectedLanguage] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const formRef = useRef(null);
   // const [pdf, setPdf] = useState("");
   const { t } = useTranslation();
   const form = useForm({
@@ -43,57 +43,56 @@ function CampaignForm() {
   });
 
   console.log({ selectedLanguage });
-  const GetPressRelease = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
-    setIsLoading(true)
+  const GetPressRelease = async () => {
+    setIsLoading(true);
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/submit-campaign",
+        "https://story-project-theta.vercel.app/submit-campaign",
         {
           ...form.values,
           lang: selectedLanguage,
         }
       );
       if (response) {
-        setIsLoading(false)
+        setIsLoading(false);
         open();
-        form.setFieldValue('')
-      
+        form.setFieldValue("");
       }
     } catch (error) {
       console.error("Error submitting campaign:", error);
     }
   };
 
-  function SubmitGoogleSheet(e){
-    const formEle = document.querySelector("form");
-    const formDatab = new FormData(formEle);
-    fetch(
-      "https://script.google.com/macros/s/AKfycby8gyqNpCNbn1bBP010hXy7niHFuYnLjg6qk52A_6L3SRaI38EKvjMAlXo6tYi3cjlB/exec",
-      {
-        method: "POST",
-        body: formDatab
-      }
-    )
-      .then((res) => res.json())
+  function handleFormSubmit(e) {
+    fetch("https://script.google.com/macros/s/AKfycbwcPjrva-rlW-9T66hxqU7_dhu-ZYHWIYWtcQWTZd2WL28H6TsDNxgxfunPIjT3TqCMLg/exec", {
+      
+      method: "POST",
+      body: new FormData(formRef.current),
+    })
+      .then((res) => {
+        return res.json();
+      })
       .then((data) => {
         console.log(data);
+        alert(data.msg);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((err) => console.log(err));
   }
 
-  console.log({ form });
+  // console.log({ form });
   return (
     <div className="max-w-4xl mx-auto">
-      
       <form
+        // onSubmit={GetPressRelease}
         onSubmit={(e) => {
-          // GetPressRelease();
-        SubmitGoogleSheet(e)
+          e.preventDefault()
+          handleFormSubmit(e);
+          GetPressRelease()
+     
         }}
+        ref={formRef}
+        id=""
         className="form flex flex-col gap-6 md:gap-12 mx-auto py-12 lg:py-24  px-4 md:px-8"
       >
         <h2 className="font-bold text-[#002738]   text-3xl lg:text-5xl py-4">
@@ -105,7 +104,7 @@ function CampaignForm() {
               {t("name")}
             </label>
             <TextInput
-            // required
+              required
               type="text"
               name="Name"
               {...form.getInputProps("name")}
@@ -139,7 +138,7 @@ function CampaignForm() {
             <div className="w-full">
               <PhoneInput
                 label={false}
-                name='Phone'
+                name="Phone"
                 value={form.values.phone}
                 onChange={(value) => form.setFieldValue("phone", value)}
                 defaultCountry="SA"
@@ -213,21 +212,16 @@ function CampaignForm() {
             <div>
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col gap-4">
-               
                   <Radio.Group
                     value={selectedLanguage}
                     onChange={setSelectedLanguage}
                     name="favoriteFramework"
-                  
-                
                     withAsterisk
                   >
                     <div className="flex flex-col gap-2">
-                    <Radio value="english" label="English" />
-                    <Radio value="arabic" label="Arabic" />
-
+                      <Radio value="english" label="English" />
+                      <Radio value="arabic" label="Arabic" />
                     </div>
-                  
                   </Radio.Group>
                 </div>
                 <p className="text-start text-[#475467] text-sm">
@@ -240,10 +234,17 @@ function CampaignForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full bg-[#00263A]/90 text-lg hover:bg-[#00263A] py-4 md:py-7 rounded-xl ${isLoading ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          className={`w-full bg-[#00263A]/90 text-lg hover:bg-[#00263A] py-4 md:py-7 rounded-xl ${
+            isLoading ? "cursor-not-allowed" : "cursor-pointer"
+          }`}
         >
-          {isLoading ?<div className="text-center flex w-full justify-center items-center"><Loader /></div>  : <div className="text-white"> {t("formsubmit")}</div> }
-         
+          {isLoading ? (
+            <div className="text-center flex w-full justify-center items-center">
+              <Loader />
+            </div>
+          ) : (
+            <div className="text-white"> {t("formsubmit")}</div>
+          )}
         </button>
       </form>
 
@@ -270,7 +271,6 @@ function CampaignForm() {
           </div>
         </div>
       </Modal>
-     
     </div>
   );
 }
