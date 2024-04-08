@@ -1,5 +1,5 @@
 const express = require("express")
-const submitCampaignHandler = require("../submit-campaign-handler")
+const submitCampaignHandler = require("./submit-campaign-handler")
 
 
 const router = express.Router()
