@@ -48,7 +48,7 @@ function CampaignForm() {
 
     try {
       const response = await axios.post(
-        "https://story-project-theta.vercel.app/submit-campaign",
+        "http://localhost:3000/submit-campaign",
         {
           ...form.values,
           lang: selectedLanguage,
